@@ -27,3 +27,10 @@ export type SignIn = {
     email:string;
     password:string;
 }
+
+
+export type JWTPayload = {
+    id:number;
+    username:string;
+    isAdmin:boolean;
+}

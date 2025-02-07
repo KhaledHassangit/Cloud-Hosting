@@ -1,9 +1,10 @@
 import db from "@/app/lib/prisma";
-import { SignUp } from "@/app/types/types";
+import { JWTPayload, SignUp } from "@/app/types/types";
 import { SignUpSchema } from "@/app/validations/validationSchema";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import bcrypt from "bcryptjs";
+import { generateJWT } from "@/app/lib/generatejwt";
 
 
 
@@ -34,8 +35,14 @@ export async function POST(request: NextRequest) {
                 isAdmin: true,
             }
         });
-        const token = null ;
-        return NextResponse.json({...newUser,token}, { status: 201 });
+        // Generate Token
+        const jwtPayload: JWTPayload = {
+            id: newUser.id,
+            username: newUser.username,
+            isAdmin: newUser.isAdmin
+        };
+        const token = generateJWT(jwtPayload)
+        return NextResponse.json({ ...newUser, token }, { status: 201 });
     } catch (error) {
         if (error instanceof z.ZodError) {
             return NextResponse.json({ errors: error.errors }, { status: 400 });
