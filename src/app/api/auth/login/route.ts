@@ -3,8 +3,8 @@ import { JWTPayload, SignIn } from "@/app/types/types";
 import { LoginSchema } from "@/app/validations/validationSchema";
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import { generateJWT } from "@/app/lib/generatejwt";
-
+import {setTokenInCookies } from "@/app/lib/generatejwt";
+  
 
 export async function POST(request: NextRequest) {
     try {
@@ -21,14 +21,19 @@ export async function POST(request: NextRequest) {
         if (!isMatch) {
             return NextResponse.json({ message: "Invalid credentials" }, { status: 400 });
         }
-        // Generate Token
+
+        // Generate Token and set in cookies
         const jwtPayload:JWTPayload = {
             id: user.id, 
             username: user.username,
             isAdmin: user.isAdmin
         };
-        const token = generateJWT(jwtPayload)
-        return NextResponse.json({ message: 'User logged in successfully', ...user, token }, { status: 200 });
+        const cookie = setTokenInCookies(jwtPayload);
+        return NextResponse.json({ message: 'User logged in successfully', ...user },
+             { 
+                status: 200, 
+                headers:{"Set-Cookie": cookie}
+            });
     }
     catch (error) {
         console.error(error);

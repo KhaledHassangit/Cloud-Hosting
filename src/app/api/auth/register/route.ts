@@ -4,7 +4,7 @@ import { SignUpSchema } from "@/app/validations/validationSchema";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import bcrypt from "bcryptjs";
-import { generateJWT } from "@/app/lib/generatejwt";
+import { setTokenInCookies } from "@/app/lib/generatejwt";
 
 
 
@@ -35,14 +35,18 @@ export async function POST(request: NextRequest) {
                 isAdmin: true,
             }
         });
-        // Generate Token
-        const jwtPayload: JWTPayload = {
-            id: newUser.id,
+        // Generate Token and set in cookies
+        const jwtPayload:JWTPayload = {
+            id: newUser.id, 
             username: newUser.username,
             isAdmin: newUser.isAdmin
         };
-        const token = generateJWT(jwtPayload)
-        return NextResponse.json({ ...newUser, token }, { status: 201 });
+        const cookie = setTokenInCookies(jwtPayload);
+        return NextResponse.json({ ...newUser }, 
+            { 
+            status: 201, 
+            headers:{"Set-Cookie": cookie}
+        });
     } catch (error) {
         if (error instanceof z.ZodError) {
             return NextResponse.json({ errors: error.errors }, { status: 400 });
