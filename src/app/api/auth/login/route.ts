@@ -5,6 +5,7 @@ import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { generateJWT } from "@/app/lib/generatejwt";
 
+
 export async function POST(request: NextRequest) {
     try {
         const body = await request.json() as SignIn;
@@ -32,6 +33,5 @@ export async function POST(request: NextRequest) {
     catch (error) {
         console.error(error);
         NextResponse.json({ message: "Invalid request" }, { status: 500 });
-
     }
 }
