@@ -1,4 +1,6 @@
+import { pageSize } from "@/app/constants/enums";
 import db  from "@/app/lib/prisma";
+import { verifyToken } from "@/app/lib/verifyToken";
 import { CreatedArticleDto } from "@/app/types/types";
 import { articleSchema } from "@/app/validations/validationSchema";
 import {Article } from "@prisma/client";
@@ -7,10 +9,13 @@ import { z } from "zod";
 
 
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export async function GET(request: NextRequest) {
     try {
-        const article = await db.article.findMany();
+      const pageNumber = request.nextUrl.searchParams.get("pageNumber") || "1";
+        const article = await db.article.findMany({
+          skip:pageNumber ? (parseInt(pageNumber) - 1) * pageSize : 0,
+          take:pageSize,
+        });  
         return NextResponse.json(article, { status: 200 });
     } catch (error) {
         console.error(error);
@@ -21,6 +26,10 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   try {
+    const user = verifyToken(request)
+    if(user === null || user.isAdmin === false){
+      return NextResponse.json({ message: "Unauthorized" }, { status: 403 });
+    }
     const description = (await request.json()) as CreatedArticleDto;
     const parsedBody = articleSchema.parse(description);
     const newArticle: Article = await db.article.create({

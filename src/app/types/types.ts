@@ -34,3 +34,22 @@ export type JWTPayload = {
     username:string;
     isAdmin:boolean;
 }
+
+
+export type UpdateUserDto =  {
+    username?: string;
+    email?: string;
+    password?: string;
+
+}
+
+export type CreateCommentDto ={
+    text: string;
+    articleId: number;
+
+}
+
+export type UpdateCommentDto  = {
+    text: string;
+
+}

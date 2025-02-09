@@ -16,3 +16,6 @@ export enum Environments {
     DEV = "development",
   }
   
+
+
+export const pageSize = 6;
