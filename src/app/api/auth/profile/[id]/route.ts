@@ -12,17 +12,23 @@ interface Props {
 
 export async function DELETE(request: NextRequest, { params }: Props) {
     try {
-        const user = await db.user.findUnique({ where: { id: Number(params.id) } });
+        const user = await db.user.findUnique({ 
+            where: { id: Number(params.id) },
+            include:{comments:true}
+        });
         if (!user) {
             return NextResponse.json({ message: "User not found" }, { status: 404 });
         }
 
         const userAuthenticated = verifyToken(request);
         if (userAuthenticated !== null   && userAuthenticated.id === user.id) {
+            // Delete User
             await db.user.delete({ where: { id: Number(params.id) } });
+            // Delete Comments for Deleted  User
+            const commentsId:number[] = user?.comments.map(comment => comment.id)
+            await db.comment.deleteMany({where:{id:{in:commentsId}}})
             return NextResponse.json({ message: "User deleted successfully" }, { status: 200 });
         }
-
         return NextResponse.json({ message: "forrbidden" }, { status: 403 });
 
     } catch (error) {

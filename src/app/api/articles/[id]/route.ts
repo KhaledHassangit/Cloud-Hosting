@@ -76,12 +76,17 @@ export async function DELETE(request: NextRequest , { params }: Props) {
         }
     
         const article = await db.article.findUnique({
-                where:{id: parseInt(params.id)}
+            where:{id:parseInt(params.id)},
+            include:{comments:true},
             })
         if(!article){
             return NextResponse.json({message:"Article not found"}, {status:404});
         }
-        await db.article.delete({where:{id:parseInt(params.id)}})
+        // Delete Article 
+        await db.article.delete({ where:{id:parseInt(params.id)}})
+        // Delete Comments for Deleted  Article
+        const commentsId:number[] = article?.comments.map(comment => comment.id)
+        await db.comment.deleteMany({where:{id:{in:commentsId}}})
         return NextResponse.json({ message: "Article Deleted" }, { status: 200 });
     } catch (error) {
         console.error(error);
