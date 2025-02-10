@@ -1,6 +1,6 @@
+import { JWTPayload } from "@/types/types";
 import jwt from "jsonwebtoken";
 import { NextRequest } from 'next/server';
-import { JWTPayload } from "../types/types";
 
 
 export function verifyToken(request: NextRequest): JWTPayload | null {

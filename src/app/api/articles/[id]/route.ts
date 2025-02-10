@@ -1,8 +1,8 @@
-import db from "@/app/lib/prisma";
+import db from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
-import { UpdatedArticleDto } from "@/app/types/types";
 import { Article } from "@prisma/client";
-import { verifyToken } from "@/app/lib/verifyToken";
+import { verifyToken } from "@/lib/verifyToken";
+import { UpdatedArticleDto } from "@/types/types";
 
 interface Props {
     params : {id : string}

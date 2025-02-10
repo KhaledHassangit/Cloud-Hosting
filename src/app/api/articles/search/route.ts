@@ -1,15 +1,15 @@
 import { NextRequest, NextResponse } from "next/server";
-import db from "@/app/lib/prisma";
+import db from "@/lib/prisma";
 
 export async function GET(request: NextRequest) {
     try {
-        const searchText = request.nextUrl.searchParams.get("title");
+        const searchText = request.nextUrl.searchParams.get("searchText");
         let articles;
         if (searchText) {
             articles = await db.article.findMany({
                 where: {
                     title: {
-                        equals:searchText,
+                        contains:searchText,
                         mode: "insensitive",
                     }
                 }

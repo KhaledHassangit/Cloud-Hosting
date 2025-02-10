@@ -1,30 +1,31 @@
 import React from 'react'
-import { Articles } from '../types/types'
-import Link from 'next/link';
+import { Article } from '@prisma/client';
+import { getArticles } from '@/hooks/getArticles';
+import { pageSize, Routes } from '@/constants/enums';
+import SearchInput from '@/utlizes/SearchInput';
+import ArticlesItem from '@/components/articles/ArticlesItem';
+import Pagination from '@/utlizes/Pagination';
+import db from '@/lib/prisma';
 
-const ArticlesPage = async () => {
+interface ArticlesPageProps {
+    searchParams: { pageNumber: string }
+}
+
+const ArticlesPage = async ({ searchParams }: ArticlesPageProps) => {
+    const count:number = await db.article.count();
+    const pages = Math.ceil(count / pageSize)
+    const { pageNumber } = searchParams
     try {
-        const response = await fetch("https://jsonplaceholder.typicode.com/posts");
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
-        const articles: Articles[] = await response.json();
+        const articles: Article[] = await getArticles(pageNumber)
         return (
             <section className="max-w-4xl mx-auto p-6">
-                <h1 className="text-3xl font-bold text-center mb-6">Latest Articles</h1>
+                <SearchInput />
                 <div className="grid gap-6">
-                    {articles.slice(0, 10).map((article) => (
-                        <article key={article.id} className="bg-white shadow-lg rounded-lg p-6 border border-gray-200">
-                            <h2 className="text-xl font-semibold text-gray-800">{article.title}</h2>
-                            <p className="text-gray-600 mt-2 mb-10">{article.body}</p>
-                            <Link
-                                href={`/articles/${article.id}`}
-                                className=" mt-16 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300">
-                                Read more
-                            </Link>
-                        </article>
+                    {articles?.map((article) => (
+                    <ArticlesItem article={article} key={article.id} />
                     ))}
                 </div>
+                <Pagination pageNumber={parseInt(pageNumber)} route={Routes.ARTICLES} pages={pages} />
             </section>
         );
     } catch (error) {

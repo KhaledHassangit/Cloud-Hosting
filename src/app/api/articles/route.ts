@@ -1,8 +1,8 @@
-import { pageSize } from "@/app/constants/enums";
-import db  from "@/app/lib/prisma";
-import { verifyToken } from "@/app/lib/verifyToken";
-import { CreatedArticleDto } from "@/app/types/types";
-import { articleSchema } from "@/app/validations/validationSchema";
+import { pageSize } from "@/constants/enums";
+import db from "@/lib/prisma";
+import { verifyToken } from "@/lib/verifyToken";
+import { CreatedArticleDto } from "@/types/types";
+import { articleSchema } from "@/validations/validationSchema";
 import {Article } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";

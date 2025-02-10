@@ -1,10 +1,10 @@
-import db from "@/app/lib/prisma";
-import { JWTPayload, SignUp } from "@/app/types/types";
-import { SignUpSchema } from "@/app/validations/validationSchema";
+import db from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import bcrypt from "bcryptjs";
-import { setTokenInCookies } from "@/app/lib/generatejwt";
+import { SignUpSchema } from "@/validations/validationSchema";
+import { JWTPayload, SignUp } from "@/types/types";
+import { setTokenInCookies } from "@/lib/generatejwt";
 
 
 

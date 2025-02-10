@@ -2,7 +2,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { verifyToken } from '@/app/lib/verifyToken';
 import db from '@/app/lib/prisma';
-import { UpdateCommentDto } from '@/app/types/types';
+import { UpdateCommentDto } from '@/app/articles/types/types';
 
 interface Props {
     params: { id: string };

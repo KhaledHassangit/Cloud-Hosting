@@ -16,6 +16,8 @@ export enum Environments {
     DEV = "development",
   }
   
-
+export enum DOMAIN {
+    HOST = "http://localhost:3000"
+}
 
 export const pageSize = 6;

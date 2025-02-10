@@ -1,4 +1,4 @@
-import { Articles } from "@/app/types/types";
+import { Articles } from "@/app/articles/types/types";
 import { notFound } from "next/navigation";
 
 

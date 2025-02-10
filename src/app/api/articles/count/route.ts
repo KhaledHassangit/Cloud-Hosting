@@ -1,5 +1,5 @@
+import db from "@/lib/prisma";
 import { NextRequest, NextResponse } from "next/server";
-import db from "@/app/lib/prisma";
 
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

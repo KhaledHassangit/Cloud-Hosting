@@ -1,8 +1,8 @@
+import db from '@/lib/prisma';
+import { verifyToken } from '@/lib/verifyToken';
+import { CreateCommentDto } from '@/types/types';
+import { createCommentShema } from '@/validations/validationSchema';
 import { NextRequest, NextResponse } from 'next/server';
-import { verifyToken } from '@/app/lib/verifyToken';
-import db from '@/app/lib/prisma';
-import { CreateCommentDto } from '@/app/types/types';
-import { createCommentShema } from '@/app/validations/validationSchema';
 
 /**
  *  @method  POST

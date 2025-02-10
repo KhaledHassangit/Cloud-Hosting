@@ -3,7 +3,7 @@ import Link from "next/link";
 import { GrTechnology } from "react-icons/gr";
 import { AiOutlineMenu } from "react-icons/ai";
 import { IoMdClose } from "react-icons/io";
-import { Routes } from "@/app/constants/enums";
+import {  Routes } from '@/constants/enums';
 import { useState } from 'react';
 
 const Navbar = () => {
@@ -16,7 +16,7 @@ const Navbar = () => {
       </Link>
       <ul className="hidden md:flex items-center space-x-6 ms-10">
         <li><Link href={Routes.ROOT} className="text-lg font-semibold text-gray-800 hover:text-blue-800">Home</Link></li>
-        <li><Link href={Routes.ARTICLES} className="text-lg font-semibold text-gray-800 hover:text-blue-800">Articles</Link></li>
+        <li><Link  href={`${Routes.ARTICLES}?pageNumber=1`} className="text-lg font-semibold text-gray-800 hover:text-blue-800">Articles</Link></li>
         <li><Link href={Routes.ABOUT} className="text-lg font-semibold text-gray-800 hover:text-blue-800">About</Link></li>
       </ul>
       <div className="text-4xl font-bold text-gray-800 cursor-pointer md:hidden" onClick={() => setToggle(!toggle)}>

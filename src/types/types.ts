@@ -53,3 +53,9 @@ export type UpdateCommentDto  = {
     text: string;
 
 }
+
+export type PaginationProps = {
+    pages: number;
+    pageNumber: number;
+    route: string
+}
