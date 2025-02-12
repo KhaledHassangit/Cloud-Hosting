@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { LoginSchema } from "@/validations/validationSchema";
 import { JWTPayload, SignIn } from "@/types/types";
-import { setTokenInCookies } from "@/lib/generatejwt";
+import { setTokenInCookies } from "@/hooks/generatejwt";
   
 
 export async function POST(request: NextRequest) {

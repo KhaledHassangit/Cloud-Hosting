@@ -1,9 +1,6 @@
-export type Articles = {
-    id :number;
-    userId:number;
-    title:string;
-    description:string;
-}
+import { Article, Comment, User } from "@prisma/client";
+
+
 
 
 export type CreatedArticleDto = {
@@ -57,5 +54,11 @@ export type UpdateCommentDto  = {
 export type PaginationProps = {
     pages: number;
     pageNumber: number;
-    route: string
+    route: string  
 }
+
+export type CommentWithUser = Comment & { user : User}
+
+export type SingleArticle = Article & {
+    comments:CommentWithUser[]
+};

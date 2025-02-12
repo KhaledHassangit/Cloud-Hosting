@@ -14,7 +14,6 @@ export function generateJWT(jwtPayload:JWTPayload): string{
 
 
 // Set Token in Cookies
-
 export function setTokenInCookies(jwtPayload:JWTPayload): string{
     const token = generateJWT(jwtPayload)
         const cookie = serialize("token", token, {

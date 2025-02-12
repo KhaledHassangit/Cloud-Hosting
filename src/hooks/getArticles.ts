@@ -1,18 +1,17 @@
 import { Article } from "@prisma/client";
 import { DOMAIN } from "../constants/enums";
+import { SingleArticle } from "@/types/types";
 
 export async function getArticles(pageNumber: string | undefined): Promise<Article[]> {
-    const response = await fetch(`${DOMAIN.HOST}/api/articles?pageNumber=${pageNumber}`);
+    const response = await fetch(`${DOMAIN.LOCALHOST}/api/articles?pageNumber=${pageNumber}`);
     if (!response.ok) {
         throw new Error('Network response was not ok');
     }
     return response.json();
 }
 
-
-
 export async function getTotalArticles(): Promise<number> {
-    const response = await fetch(`${DOMAIN.HOST}/api/articles/count`);
+    const response = await fetch(`${DOMAIN.LOCALHOST}/api/articles/count`);
     if (!response.ok) {
         throw new Error('Network response was not ok');
     }
@@ -21,10 +20,19 @@ export async function getTotalArticles(): Promise<number> {
 }
 
 export async function getArticlesByTitle(searchText: string): Promise<Article[]> {
-    const response = await fetch(`${DOMAIN.HOST}/api/articles/search?searchText=${searchText}`);
+    const response = await fetch(`${DOMAIN.LOCALHOST}/api/articles/search?searchText=${searchText}`);
     if (!response.ok) {
         throw new Error('Network response was not ok');
     }
     return response.json();
 }
 
+
+
+export async function getSingleArticle(id: string): Promise<SingleArticle> {
+    const response = await fetch(`${DOMAIN.LOCALHOST}/api/articles/${id}`);
+    if (!response.ok) {
+        throw new Error('Network response was not ok');
+    }
+    return response.json();
+}

@@ -4,7 +4,7 @@ import { z } from "zod";
 import bcrypt from "bcryptjs";
 import { SignUpSchema } from "@/validations/validationSchema";
 import { JWTPayload, SignUp } from "@/types/types";
-import { setTokenInCookies } from "@/lib/generatejwt";
+import { setTokenInCookies } from "@/hooks/generatejwt";
 
 
 

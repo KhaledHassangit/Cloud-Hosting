@@ -1,6 +1,6 @@
 import { pageSize } from "@/constants/enums";
 import db from "@/lib/prisma";
-import { verifyToken } from "@/lib/verifyToken";
+import { verifyToken } from "@/hooks/verifyToken";
 import { CreatedArticleDto } from "@/types/types";
 import { articleSchema } from "@/validations/validationSchema";
 import {Article } from "@prisma/client";

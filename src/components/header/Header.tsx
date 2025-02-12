@@ -2,7 +2,7 @@ import Link from 'next/link'
 import Navbar from './Navbar';
 import { Pages } from '@/constants/enums';
 import { cookies } from 'next/headers';
-import { verifyTokenForPage } from '@/lib/verifyToken';
+import { verifyTokenForPage } from '@/hooks/verifyToken';
 import LogoutButton from './Logout';
 
 const Header = async () => {

@@ -13,7 +13,6 @@ export function verifyToken(request: NextRequest): JWTPayload | null {
             const privateKey = process.env.JWT_SECRET as string;
             const userPayload = jwt.verify(token, privateKey) as JWTPayload;
             return userPayload;
-
     /* eslint-disable @typescript-eslint/no-unused-vars */
     } catch (error) {
         return null

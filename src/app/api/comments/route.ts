@@ -1,5 +1,5 @@
 import db from '@/lib/prisma';
-import { verifyToken } from '@/lib/verifyToken';
+import { verifyToken } from '@/hooks/verifyToken';
 import { CreateCommentDto } from '@/types/types';
 import { createCommentShema } from '@/validations/validationSchema';
 import { NextRequest, NextResponse } from 'next/server';

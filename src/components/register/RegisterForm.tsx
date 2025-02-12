@@ -15,7 +15,6 @@ const RegisterForm = () => {
 
     const validateForm = () => {
         const newErrors: { username?: string; email?: string; password?: string } = {};
-        
         if (!username.trim()) newErrors.username = "Username is required.";
         if (!email.trim()) newErrors.email = "Email is required.";
         if (!password.trim()) {
@@ -23,7 +22,6 @@ const RegisterForm = () => {
         } else if (password.length < 6) {
             newErrors.password = "Password must be at least 6 characters.";
         }
-
         setErrors(newErrors);
         return Object.keys(newErrors).length === 0;
     };
@@ -33,7 +31,7 @@ const RegisterForm = () => {
         if (validateForm()) {
             try {
                 setLoading(true);
-                await axios.post(`${DOMAIN.HOST}/api/auth/register`, { email, password, username });
+                await axios.post(`${DOMAIN.LOCALHOST}/api/auth/register`, { email, password, username });
                 router.replace('/');
                 setLoading(false);
                 router.refresh();
@@ -82,8 +80,7 @@ const RegisterForm = () => {
             <button 
                 disabled={loading} 
                 type="submit" 
-                className="text-2xl text-white bg-blue-800 p-2 rounded-lg font-bold disabled:bg-blue-400"
-            >
+                className="text-2xl text-white bg-blue-800 p-2 rounded-lg font-bold disabled:bg-blue-400">
                 {loading ? <Spinner /> : "Register"}
             </button>
         </form>

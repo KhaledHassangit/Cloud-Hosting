@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from 'bcryptjs';
-import { verifyToken } from "@/lib/verifyToken";
+import { verifyToken } from "@/hooks/verifyToken";
 import db from "@/lib/prisma";
 import { UpdateUserDto } from "@/types/types";
 import { updateUserSchema } from "@/validations/validationSchema";

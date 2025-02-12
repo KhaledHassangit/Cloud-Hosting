@@ -32,8 +32,9 @@ const LoginForm = () => {
     
     if (validateForm()) {
       setLoading(true);
+      
       try {
-        const response = await axios.post(`${DOMAIN.HOST}/api/auth/login`, {
+        const response = await axios.post(`${DOMAIN.LOCALHOST}/api/auth/login`, {
           email,
           password,
         });
